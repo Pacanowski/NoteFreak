@@ -9,7 +9,7 @@ namespace NoteFreak
         bool saved = false;
         bool loaded = false;
 
-        string openedFileName = "";
+        string currentFileName = "C:/niepowiem.ppp";
 
         string imported = "";
         public Form1()
@@ -50,7 +50,7 @@ namespace NoteFreak
 
                 }
 
-                openedFileName = openFile.FileName;
+                currentFileName = openFile.FileName;
             }
 
 
@@ -79,19 +79,33 @@ namespace NoteFreak
 
             }
 
+            currentFileName = saveFile.FileName;
+
             
         }
 
         private void Save(object sender, EventArgs e)
         {
 
-            if(openedFileName != "")
+            
+            if(currentFileName != "")
             {
-                saved = true;
 
-                File.WriteAllText(openedFileName, textBox.Text);
+                if (!File.Exists(currentFileName))
+                {
+                    SaveAs(sender, e);
+                }
+                else
+                {
+                    saved = true;
 
-                output.Text = "Saved file as " + openedFileName;
+                    File.WriteAllText(currentFileName, textBox.Text);
+
+                    output.Text = "Saved file as " + currentFileName;
+                }
+
+
+              
             }
 
           
